@@ -20,21 +20,21 @@ namespace ASP.NETCore7.Controllers
         }
 
         [HttpGet("GetAllEmployees")]
-        public ActionResult<List<Employee>> GetAllEmployees()
+        public async Task<ActionResult<ServiceResponse<List<Employee>>>> GetAllEmployees()
         {
-            return (_employeeService.GetAllEmployees());
+            return (await _employeeService.GetAllEmployees());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Employee> Get(int id)
+        public async Task<ActionResult<ServiceResponse<Employee>>> Get(int id)
         {
-            return Ok(_employeeService.GetEmployeeById(id));
+            return Ok(await _employeeService.GetEmployeeById(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Employee>> CreateEmployee(Employee newEmployee)
+        public async Task<ActionResult<ServiceResponse<List<Employee>>>> CreateEmployee(Employee newEmployee)
         {
-            return Ok(_employeeService.CreateEmployee(newEmployee));
+            return Ok(await _employeeService.CreateEmployee(newEmployee));
         }
     }
 }

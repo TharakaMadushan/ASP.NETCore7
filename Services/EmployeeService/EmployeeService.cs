@@ -15,23 +15,27 @@ namespace ASP.NETCore7.Services.EmployeeService
             new Employee {Id= 1, FirstName="Ridmi", LastName="Pavinthika"}
         };
 
-        public List<Employee> CreateEmployee(Employee newEmployee)
+        public async Task<ServiceResponse<List<Employee>>> CreateEmployee(Employee newEmployee)
         {
+            var ServiceResponse = new ServiceResponse<List<Employee>>();
             employees.Add(newEmployee);
-            return employees;
+            ServiceResponse.Data = employees;
+            return ServiceResponse;
         }
 
-        public List<Employee> GetAllEmployees()
+        public async Task<ServiceResponse<List<Employee>>> GetAllEmployees()
         {
-            return employees;
+            var ServiceResponse = new ServiceResponse<List<Employee>>();
+            ServiceResponse.Data = employees;
+            return ServiceResponse;
         }
 
-        public Employee GetEmployeeById(int id)
+        public async Task<ServiceResponse<Employee>> GetEmployeeById(int id)
         {
+            var ServiceResponse = new ServiceResponse<Employee>();
             var emp = employees.FirstOrDefault(c => c.Id == id);
-            if(emp is not null)
-                return emp;
-            throw new Exception("Employee Not Found!");
+            ServiceResponse.Data=emp;
+            return ServiceResponse;
            
         }
     }

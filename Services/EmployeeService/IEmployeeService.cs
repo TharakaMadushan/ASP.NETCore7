@@ -8,8 +8,8 @@ namespace ASP.NETCore7.Services.EmployeeService
 {
     public interface IEmployeeService
     {
-        public List<Employee> GetAllEmployees();
-        public Employee GetEmployeeById(int id);
-        public List<Employee> CreateEmployee(Employee newEmployee);
+        public Task<ServiceResponse<List<Employee>>> GetAllEmployees();
+        public Task<ServiceResponse<Employee>> GetEmployeeById(int id);
+        public Task<ServiceResponse<List<Employee>>> CreateEmployee(Employee newEmployee);
     }
 }
