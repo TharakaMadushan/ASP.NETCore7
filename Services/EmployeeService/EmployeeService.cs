@@ -26,7 +26,10 @@ namespace ASP.NETCore7.Services.EmployeeService
         public async Task<ServiceResponse<List<GetEmployeeDTO>>> CreateEmployee(CreateEmployeeDTO newEmployee)
         {
             var ServiceResponse = new ServiceResponse<List<GetEmployeeDTO>>();
-            employees.Add(_mapper.Map<Employee>(newEmployee));
+            var createEmp = _mapper.Map<Employee>(newEmployee);
+            createEmp.Id = employees.Max(c => c.Id) + 1;
+
+            employees.Add(createEmp);
             ServiceResponse.Data = employees.Select(c => _mapper.Map<GetEmployeeDTO>(c)).ToList();
             return ServiceResponse;
         }
@@ -44,6 +47,37 @@ namespace ASP.NETCore7.Services.EmployeeService
             var emp = employees.FirstOrDefault(c => c.Id == id);
             ServiceResponse.Data = _mapper.Map<GetEmployeeDTO>(emp);
             return ServiceResponse;
+
+        }
+
+        public async Task<ServiceResponse<GetEmployeeDTO>> UpdateEmployee(UpdateEmployeeDTO updateEmployee)
+        {
+            var serviceResponse = new ServiceResponse<GetEmployeeDTO>();
+
+            try
+            {
+               
+                var emp = employees.FirstOrDefault(c => c.Id == updateEmployee.Id);
+                if (emp is null)
+                    throw new Exception($"Employee with Id '{updateEmployee.Id}' not Found!");
+
+                emp.FirstName = updateEmployee.FirstName;
+                emp.LastName = updateEmployee.LastName;
+                emp.ContactNo = updateEmployee.ContactNo;
+                emp.Age = updateEmployee.Age;
+                emp.BasicSalary = updateEmployee.BasicSalary;
+                emp.Class = updateEmployee.Class;
+
+                serviceResponse.Data = _mapper.Map<GetEmployeeDTO>(emp);
+               
+            }
+            catch (Exception ex)
+            {              
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
 
         }
     }

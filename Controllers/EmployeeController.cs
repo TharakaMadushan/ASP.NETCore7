@@ -37,5 +37,11 @@ namespace ASP.NETCore7.Controllers
         {
             return Ok(await _employeeService.CreateEmployee(newEmployee));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetEmployeeDTO>>>> UpdateEmployee(UpdateEmployeeDTO updateEmployee)
+        {
+            return Ok(await _employeeService.UpdateEmployee(updateEmployee));
+        }
     }
 }

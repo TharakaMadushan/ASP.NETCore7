@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace ASP.NETCore7.Models
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum Enums
+    public enum StatusClass
     {
-        Active = 1,
-        InActive = 0
+        InActive = 0,
+        Active = 1
     }
 }

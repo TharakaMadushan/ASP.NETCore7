@@ -13,6 +13,6 @@ namespace ASP.NETCore7.DTOs
         public string? ContactNo { get; set; } = "0776330567";
         public int Age { get; set; } = 27;
         public decimal BasicSalary { get; set; } = 100000;
-        public Enum IsActive { get; set; } = Enums.Active;
+        public StatusClass Class { get; set; } = StatusClass.Active;
     }
 }

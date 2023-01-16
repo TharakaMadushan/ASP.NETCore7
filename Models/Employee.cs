@@ -22,7 +22,7 @@ namespace ASP.NETCore7.Models
         public int Age {get; set;} = 27;
         [Required]
         public decimal BasicSalary {get; set;} = 100000;
-        public Enum IsActive {get; set;} = Enums.Active;
+        public StatusClass Class {get; set;} = StatusClass.Active;
         
     }
 }

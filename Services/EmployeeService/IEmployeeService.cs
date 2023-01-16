@@ -12,5 +12,7 @@ namespace ASP.NETCore7.Services.EmployeeService
         public Task<ServiceResponse<List<GetEmployeeDTO>>> GetAllEmployees();
         public Task<ServiceResponse<GetEmployeeDTO>> GetEmployeeById(int id);
         public Task<ServiceResponse<List<GetEmployeeDTO>>> CreateEmployee(CreateEmployeeDTO newEmployee);
+        public Task<ServiceResponse<GetEmployeeDTO>> UpdateEmployee(UpdateEmployeeDTO updateEmployee);
+
     }
 }

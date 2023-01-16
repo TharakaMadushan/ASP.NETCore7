@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ASP.NETCore7.Models;
 
 namespace ASP.NETCore7.DTOs
 {
-    public class GetEmployeeDTO
+    public class UpdateEmployeeDTO
     {
         public int Id { get; set; }
         public string? FirstName { get; set; } = "Tharaka";
