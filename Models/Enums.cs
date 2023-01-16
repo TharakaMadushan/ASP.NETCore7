@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ASP.NETCore7.Models
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum Enum
+    public enum Enums
     {
         Active = 1,
         InActive = 0

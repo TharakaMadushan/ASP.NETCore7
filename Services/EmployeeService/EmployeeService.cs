@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASP.NETCore7.DTOs;
 using ASP.NETCore7.Models;
+using AutoMapper;
 
 namespace ASP.NETCore7.Services.EmployeeService
 {
@@ -15,28 +17,34 @@ namespace ASP.NETCore7.Services.EmployeeService
             new Employee {Id= 1, FirstName="Ridmi", LastName="Pavinthika"}
         };
 
-        public async Task<ServiceResponse<List<Employee>>> CreateEmployee(Employee newEmployee)
+        private readonly IMapper _mapper;
+        public EmployeeService(IMapper mapper)
         {
-            var ServiceResponse = new ServiceResponse<List<Employee>>();
-            employees.Add(newEmployee);
-            ServiceResponse.Data = employees;
+            _mapper = mapper;
+        }
+
+        public async Task<ServiceResponse<List<GetEmployeeDTO>>> CreateEmployee(CreateEmployeeDTO newEmployee)
+        {
+            var ServiceResponse = new ServiceResponse<List<GetEmployeeDTO>>();
+            employees.Add(_mapper.Map<Employee>(newEmployee));
+            ServiceResponse.Data = employees.Select(c => _mapper.Map<GetEmployeeDTO>(c)).ToList();
             return ServiceResponse;
         }
 
-        public async Task<ServiceResponse<List<Employee>>> GetAllEmployees()
+        public async Task<ServiceResponse<List<GetEmployeeDTO>>> GetAllEmployees()
         {
-            var ServiceResponse = new ServiceResponse<List<Employee>>();
-            ServiceResponse.Data = employees;
+            var ServiceResponse = new ServiceResponse<List<GetEmployeeDTO>>();
+            ServiceResponse.Data = employees.Select(c => _mapper.Map<GetEmployeeDTO>(c)).ToList();
             return ServiceResponse;
         }
 
-        public async Task<ServiceResponse<Employee>> GetEmployeeById(int id)
+        public async Task<ServiceResponse<GetEmployeeDTO>> GetEmployeeById(int id)
         {
-            var ServiceResponse = new ServiceResponse<Employee>();
+            var ServiceResponse = new ServiceResponse<GetEmployeeDTO>();
             var emp = employees.FirstOrDefault(c => c.Id == id);
-            ServiceResponse.Data=emp;
+            ServiceResponse.Data = _mapper.Map<GetEmployeeDTO>(emp);
             return ServiceResponse;
-           
+
         }
     }
 }
