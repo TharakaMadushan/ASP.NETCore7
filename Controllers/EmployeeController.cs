@@ -41,7 +41,23 @@ namespace ASP.NETCore7.Controllers
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<List<GetEmployeeDTO>>>> UpdateEmployee(UpdateEmployeeDTO updateEmployee)
         {
-            return Ok(await _employeeService.UpdateEmployee(updateEmployee));
+            var response = await _employeeService.UpdateEmployee(updateEmployee);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response); 
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetEmployeeDTO>>> DeleteEmployee(int id)
+        {
+            var response = await _employeeService.DeleteEmployee(id);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
         }
     }
 }

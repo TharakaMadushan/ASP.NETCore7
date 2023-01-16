@@ -56,7 +56,7 @@ namespace ASP.NETCore7.Services.EmployeeService
 
             try
             {
-               
+
                 var emp = employees.FirstOrDefault(c => c.Id == updateEmployee.Id);
                 if (emp is null)
                     throw new Exception($"Employee with Id '{updateEmployee.Id}' not Found!");
@@ -69,16 +69,39 @@ namespace ASP.NETCore7.Services.EmployeeService
                 emp.Class = updateEmployee.Class;
 
                 serviceResponse.Data = _mapper.Map<GetEmployeeDTO>(emp);
-               
+
             }
             catch (Exception ex)
-            {              
+            {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
 
             return serviceResponse;
 
+        }
+
+        public async Task<ServiceResponse<List<GetEmployeeDTO>>> DeleteEmployee(int id)
+        {
+            var serviceResponse = new ServiceResponse<List<GetEmployeeDTO>>();
+
+            try
+            {
+
+                var emp = employees.FirstOrDefault(c => c.Id == id);
+                if (emp is null)
+                    throw new Exception($"Employee with Id '{id}' not Found!");
+                employees.Remove(emp);
+                serviceResponse.Data = employees.Select(c => _mapper.Map<GetEmployeeDTO>(c)).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
         }
     }
 }
